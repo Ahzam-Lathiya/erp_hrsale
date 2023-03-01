@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use Carbon\Carbon;
-use App\Models\Assets;
+use App\Models\AssetTypes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Assets>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class AssetsFactory extends Factory
+class AssetTypesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +19,8 @@ class AssetsFactory extends Factory
     public function definition()
     {
         return [
-            //'asset_type_id' => fake()->unique()->randomDigitNotNull(),
-            'asset_type_id' => 1,
-            'name' => fake()->name(),
+            'sdesc' => fake()->name(),
+            'ldesc' => fake()->name(),
             'status' => fake()->boolean(),
             'created_at' => Carbon::create('2022', '12', '01'),
             'updated_at' => Carbon::create('2022', '12', '01'),
@@ -37,10 +36,5 @@ class AssetsFactory extends Factory
         });
     }
 
-    // public function configure()
-    // {
-    //     echo "Init Factory" . "\n";
-    // }
-
-    protected $model = Assets::class;
+    protected $model = AssetTypes::class;
 }
