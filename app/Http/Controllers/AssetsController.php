@@ -6,6 +6,9 @@ use App\Http\Requests\StoreAssetsRequest;
 use App\Http\Requests\UpdateAssetsRequest;
 use App\Models\Assets;
 
+//use Illuminate\Support\Facades\View;
+
+
 class AssetsController extends Controller
 {
     /**
@@ -18,8 +21,10 @@ class AssetsController extends Controller
         //
         $asset_obj = Assets::all();
 
-        return view('assets_list',[
+        return view('assets.assets_list',[
             'assets' => $asset_obj,
+            'page_title' => 'Assets',
+            'main_heading' => 'Assets'
         ]);
     }
 
@@ -31,8 +36,11 @@ class AssetsController extends Controller
     public function create()
     {
         //
-        return view('assets_form',[
+        return view('assets.assets_form',[
             'asset_id' => null,
+            'page_title' => 'Asset',
+            'main_heading' => 'Asset',
+            'form_action' => '/assets'
         ]);
     }
 
@@ -56,11 +64,18 @@ class AssetsController extends Controller
     public function show(Assets $assets, int $id)
     {
         //
-        $asset_obj = Assets::where('asset_id', '=', 1)->get();
+        $asset_obj = Assets::where('asset_id', '=', $id)->get();
 
-        return view('asset',[
+        // echo '<pre>';
+        // \print_r($asset_obj);
+        // echo '</pre>';
+        // exit;
+
+        return view('assets.asset',[
             'asset_id' => $id,
             'asset' => $asset_obj,
+            'main_heading' => 'Asset',
+            'page_title' => 'Asset'
         ]);
     }
 
@@ -73,7 +88,7 @@ class AssetsController extends Controller
     public function edit(Assets $assets, int $id)
     {
         //
-        return view('assets_form',[
+        return view('assets.assets_form',[
             'asset_id' => $id,
         ]);
     }
@@ -101,3 +116,5 @@ class AssetsController extends Controller
         //
     }
 }
+
+?>

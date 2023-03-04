@@ -15,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
+});
+
+Route::get('/demo', function () {
+    return view('demo', [
+        'page_title' => 'Demo',
+        'main_heading' => 'Demo'
+    ]);
 });
 
 Route::resource('assets', AssetsController::class);

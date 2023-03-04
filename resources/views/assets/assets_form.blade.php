@@ -1,0 +1,31 @@
+@extends('layout.main')
+
+@section('main')
+<form action="{{ $form_action }}" method="post">
+    @csrf
+  <label>Name</label>
+  <input name="name" type="text">
+
+  <label>Asset Type</label>
+  <select name="asset_type_id">
+    <option value="0">Select</option>
+    <option value="1">Car</option>
+    <option value="2">Bike</option>
+    <option value="3">Laptop</option>
+    <option value="4">Phone</option>
+  </select>
+
+  <label>Status</label>
+  <input name="status" type="radio">
+
+  <label>Date Created</label>
+  <input name="created_at" type="date">
+
+  <label>Save</label>
+  <input type="submit">
+</form>
+@endsection
+
+<script>
+  let value = '{{ $global_val }}';
+  </script>
