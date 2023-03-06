@@ -1,8 +1,8 @@
 @extends('layout.main')
 
 @section('main')
-<form action="{{ $form_action }}" method="post">
-    @csrf
+<form action="{{ route('assets.store') }}" method="POST" enctype="multipart/form-data">
+  @csrf
   <label>Name</label>
   <input name="name" type="text">
 

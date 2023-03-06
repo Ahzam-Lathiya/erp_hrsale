@@ -53,6 +53,7 @@ class AssetsController extends Controller
     public function store(StoreAssetsRequest $request)
     {
         //
+        dd($request);
     }
 
     /**

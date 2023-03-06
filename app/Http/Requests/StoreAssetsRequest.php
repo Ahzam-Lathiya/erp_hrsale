@@ -13,7 +13,7 @@ class StoreAssetsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,3 +28,5 @@ class StoreAssetsRequest extends FormRequest
         ];
     }
 }
+
+?>
