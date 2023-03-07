@@ -44,19 +44,50 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        echo '<pre>';
-        \print_r($request);
-        echo '</pre>';
-        exit;
+
     }
 
-    public function posting()
+    public function authenticate(Request $request)
     {
-        echo '<pre>';
-        \print_r($_POST);
-        echo '</pre>';
-        exit;
+        if( $request->input('username') != 'ahzam' )
+        {
+            return response()->json(
+                [
+                    'message' => 'User Name Incorrect',
+                    'status' => 0,
+                ]
+            );
+        }
+
+        if( $request->input('password') != 'certainly' )
+        {
+            return response()->json(
+                [
+                    'message' => 'Password Incorrect',
+                    'status' => 0,
+                ]
+            );
+        }
+
+        // $request->session()->put('name', 'ahzam');
+        // $rand = 500;
+
+        // $request->session()->put('token_cust', $rand);
+
+        // return response('Authenticated')->cookie(
+        //     'token_cust', $rand, 30
+        // );
+
+        session_start();
+
+        $_SESSION['token'] = '500';
+        $_SESSION['name'] = $request->input('username');
+
+        setcookie('token', '500');
+
+        return response('Authenticated');
     }
+
 }
 
 ?>

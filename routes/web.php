@@ -28,9 +28,10 @@ Route::get('/demo', function () {
 });
 
 Route::get('/login', [LoginController::class, 'login']);
+Route::post('/login/authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
 
-//Route::resource('assets', AssetsController::class);
-Route::get('/assets/create', [AssetsController::class, 'create'])->name('assets.create');
-Route::post('/assets', [AssetsController::class, 'store'])->name('assets.store');
+Route::resource('assets', AssetsController::class);
+// Route::get('/assets/create', [AssetsController::class, 'create'])->name('assets.create');
+// Route::post('/assets', [AssetsController::class, 'store'])->name('assets.store');
 
 ?>
