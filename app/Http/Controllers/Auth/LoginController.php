@@ -44,48 +44,70 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        if(empty(session('token')))
+        {
+            return view('login_form',[
+                'asset_id' => null,
+                'page_title' => 'Login',
+                'main_heading' => 'Login',
+                'form_action' => '/login/authenticate'
+            ]);
+        }
 
+        return response('Home View When logged in');
     }
 
     public function authenticate(Request $request)
     {
+        $data = [
+            'asset_id' => null,
+            'page_title' => 'Login',
+            'main_heading' => 'Login',
+            'form_action' => '/login/authenticate'
+        ];
+
         if( $request->input('username') != 'ahzam' )
         {
-            return response()->json(
-                [
-                    'message' => 'User Name Incorrect',
-                    'status' => 0,
-                ]
-            );
+            // return response()->json(
+            //     [
+            //         'message' => 'User Name Incorrect',
+            //         'status' => 0,
+            //     ]
+            // );
+
+            return response()
+            ->view('login_form', $data, 404);
         }
 
         if( $request->input('password') != 'certainly' )
         {
-            return response()->json(
-                [
-                    'message' => 'Password Incorrect',
-                    'status' => 0,
-                ]
-            );
+            // return response()->json(
+            //     [
+            //         'message' => 'Password Incorrect',
+            //         'status' => 0,
+            //     ]
+            // );
+            return response()
+            ->view('login_form', $data, 401);
         }
 
-        // $request->session()->put('name', 'ahzam');
-        // $rand = 500;
+        $request->session()->put([
+            'token' => 500
+        ]);
 
-        // $request->session()->put('token_cust', $rand);
+        // return response()->json([
+        //     'msg' => 'Login Successfully. Please Wait',
+        //     'status' => 'TRUE'
+        // ]);
 
-        // return response('Authenticated')->cookie(
-        //     'token_cust', $rand, 30
-        // );
+        return response('Logged In')
+        ->cookie('token', 500);
+    }
 
-        session_start();
-
-        $_SESSION['token'] = '500';
-        $_SESSION['name'] = $request->input('username');
-
-        setcookie('token', '500');
-
-        return response('Authenticated');
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/');
     }
 
 }
