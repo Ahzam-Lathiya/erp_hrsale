@@ -12,4 +12,5 @@
   <label>Save</label>
   <input type="submit">
 </form>
+<p>{{ $global_val }}</p>
 @endsection

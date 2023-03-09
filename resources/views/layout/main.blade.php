@@ -13,6 +13,7 @@
     <body>
 
         @include('layout.snippets.header')
+        <p>{{ $global_val }}</p>
 
         <div class="row">
             @include('layout.snippets.navigation')
