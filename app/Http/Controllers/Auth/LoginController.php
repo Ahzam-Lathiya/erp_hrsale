@@ -59,7 +59,7 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        \sleep(6);
+        \sleep(5);
 
         if( $request->input('username') != 'ahzam' )
         {
