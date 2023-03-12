@@ -59,49 +59,48 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        $data = [
-            'asset_id' => null,
-            'page_title' => 'Login',
-            'main_heading' => 'Login',
-            'form_action' => '/login/authenticate'
-        ];
+        \sleep(6);
 
         if( $request->input('username') != 'ahzam' )
         {
-            // return response()->json(
-            //     [
-            //         'message' => 'User Name Incorrect',
-            //         'status' => 0,
-            //     ]
-            // );
+            return response()->json(
+                [
+                    'message' => 'User Name Incorrect',
+                    'status' => 0,
+                ],
+                404
+            );
 
-            return response()
-            ->view('login_form', $data, 404);
+            // return response()
+            // ->view('login_form', $data, 404);
         }
 
         if( $request->input('password') != 'certainly' )
         {
-            // return response()->json(
-            //     [
-            //         'message' => 'Password Incorrect',
-            //         'status' => 0,
-            //     ]
-            // );
-            return response()
-            ->view('login_form', $data, 401);
+            return response()->json(
+                [
+                    'message' => 'Password Incorrect',
+                    'status' => 0,
+                ],
+                401
+            );
+            // return response()
+            // ->view('login_form', $data, 401);
         }
 
         $request->session()->put([
             'token' => 500
         ]);
 
-        // return response()->json([
-        //     'msg' => 'Login Successfully. Please Wait',
-        //     'status' => 'TRUE'
-        // ]);
+        return response()->json([
+                'msg' => 'Login Successful. Please Wait',
+                'status' => 'TRUE'
+            ],
+            200
+        );
 
-        return response('Logged In')
-        ->cookie('token', 500);
+        // return response('Logged In')
+        // ->cookie('token', 500);
     }
 
     public function logout(Request $request)

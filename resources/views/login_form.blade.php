@@ -1,16 +1,95 @@
-@extends('layout.main')
+@extends('layout.guest')
 
 @section('main')
-<form action="{{ route('login.authenticate') }}" method="POST" enctype="multipart/form-data">
+
+<form id="login_form" action="{{ route('login.authenticate') }}" method="POST" enctype="multipart/form-data">
   @csrf
-  <label>UserName</label>
-  <input name="username" type="text">
+  <h1 class="h3 mb-3 fw-normal">Sign in</h1>
 
-  <label>Password</label>
-  <input name="password" type="password">
+  <div class="form-floating">
+    <input type="text" name="username" class="form-control" id="floatingInput">
+    <label for="floatingInput">User ID</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+    <label for="floatingPassword">Password</label>
+  </div>
 
-  <label>Save</label>
-  <input type="submit">
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button id="form_submit_button" class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
 </form>
-<p>{{ $global_val }}</p>
+
+<p class="mt-5 mb-3 text-muted">Don't have an account. Register Below</p>
+<button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+<p class="mt-5 mb-3 text-muted">© 2023</p>
+
+
+<script>
+
+  // var controller = new AbortController();
+  // var signal_obj = controller.signal;
+
+  // var form_timeout_flag = false;
+
+  // function reset_controller()
+  // {
+  //   controller = new AbortController();
+  //   signal_obj = controller.signal;
+  // }
+
+
+  // async function post_fetch(url, data)
+  // {
+  //     let timeout_flag = false;
+
+  //     start_api_timer(5000, timeout_flag);
+
+  //     let options = {
+  //       method: 'POST',
+  //       body: data,
+  //       signal: signal_obj
+  //     };
+
+
+
+  //     let promise = await fetch(url, options);
+
+  //     let response = await promise.json();
+
+  //     return response;
+  // }
+
+  // function start_api_timer(duration, flag)
+  // {
+  //     setTimeout(function(){
+  //         if(flag)
+  //         {
+  //           abort_controller();
+  //         }
+  //     }, duration);
+  // }
+
+  let form = document.querySelector('#login_form');
+
+  document.querySelector('#form_submit_button').addEventListener('click', function(){
+    event.preventDefault();
+
+    let form_obj = new FormData( form );
+
+    post_fetch(form.action, form_obj).then(function(response){
+      console.log(response);
+    })
+    .catch(function(error){
+      console.warn(error);
+    })
+
+  });
+
+  </script>
+
 @endsection
+
