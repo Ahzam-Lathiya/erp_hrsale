@@ -25,17 +25,10 @@ Route::get('/', [LoginController::class, 'login']);
 Route::post('/login/authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
 Route::get('/logout', [LoginController::class, 'logout']);
 
-Route::middleware([session_checker::class])->group(function(){
-    // Route::get('/demo', function () {
-    //     return view('demo', [
-    //         'page_title' => 'Demo',
-    //         'main_heading' => 'Demo'
-    //     ]);
-    // });
-    
-    
-    Route::resource('assets', AssetsController::class);
+// Route::get('/resources', [AssetsController::class, 'index']);
 
+Route::middleware([session_checker::class])->group(function(){
+    Route::resource('resources', AssetsController::class);
 });
 
 // Route::get('/assets/create', [AssetsController::class, 'create'])->name('assets.create');

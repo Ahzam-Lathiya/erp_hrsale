@@ -21,6 +21,7 @@ class SessionChecker
         //     redirect('/');
         // }
 
+        
         if( empty($request->cookie('token')) || $request->cookie('token') == null )
         {
             return redirect('/');

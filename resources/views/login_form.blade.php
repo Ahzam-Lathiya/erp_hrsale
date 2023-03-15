@@ -7,7 +7,7 @@
   <h1 class="h3 mb-3 fw-normal">Sign in</h1>
 
   <div class="form-floating">
-    <input type="text" name="username" class="form-control" id="floatingInput">
+    <input type="text" name="name" class="form-control" id="floatingInput">
     <label for="floatingInput">User ID</label>
   </div>
   <div class="form-floating">
@@ -75,20 +75,36 @@
 
   let form = document.querySelector('#login_form');
 
+
+
   document.querySelector('#form_submit_button').addEventListener('click', function(){
     event.preventDefault();
 
     let form_obj = new FormData( form );
 
-    post_fetch(form.action, form_obj).then(function(response){
-      console.log(response);
-    })
-    .catch(function(error){
-      console.warn(error);
-    })
+    let form_fetcher = FetchClass;
 
+    form_fetcher.set_payload(form_obj);
+    form_fetcher.set_url(form.action);
+    form_fetcher.set_headers();
+
+    form_fetcher.call_request(
+      function(response){
+        console.log(response);
+        if(response.status != 'true')
+        {
+          alert("Something is not right");
+          return;
+        }
+
+        location.href = response.redirect_url;
+      },
+      function(error){
+        console.warn(error);
+      },
+      'post'
+    );
   });
-
   </script>
 
 @endsection

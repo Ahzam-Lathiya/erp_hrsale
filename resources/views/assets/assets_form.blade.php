@@ -31,7 +31,3 @@
   <input type="submit">
 </form>
 @endsection
-
-<script>
-  let value = '{{ $global_val }}';
-  </script>

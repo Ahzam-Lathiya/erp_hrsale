@@ -1,6 +1,5 @@
 
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-  <p>{{ $global_val }}</p>
   <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
     {{-- <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
       <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>

@@ -42,11 +42,11 @@ class AppServiceProvider extends ServiceProvider
 
         //shared in multiple views
         // Illuminate\Support\Facades\View
-        FacadeView::composer(
-            ['layout.main','layout.snippet.navigation','login_form'], 
-            function(View $view){
-                $view->with('global_val', 'certainly');
-        });
+        // FacadeView::composer(
+        //     ['layout.main','layout.snippet.navigation','login_form'], 
+        //     function(View $view){
+        //         $view->with('global_val', 'certainly');
+        // });
 
         //shared in all views
         // Illuminate\Support\Facades\View

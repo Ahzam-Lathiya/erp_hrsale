@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
 
@@ -44,7 +46,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        if(empty(session('token')))
+        if( empty(session('token')) || empty($request->cookie('token')) )
         {
             return view('login_form',[
                 'asset_id' => null,
@@ -54,14 +56,27 @@ class LoginController extends Controller
             ]);
         }
 
-        return response('Home View When logged in');
+        return redirect('/resources');
     }
 
     public function authenticate(Request $request)
     {
-        \sleep(5);
+        $user = User::where('name', $request->input('name'))
+        ->get()
+        ->toArray();
 
-        if( $request->input('username') != 'ahzam' )
+        $credentials = $request->validate([
+            'name' => ['required'],
+            'password' => ['required']
+        ]);
+
+        // if(Auth::attempt($credentials))
+        // {
+        //     echo "Auth success";
+        //     exit;
+        // }
+
+        if( $request->input('name') != $user[0]['name'] )
         {
             return response()->json(
                 [
@@ -70,12 +85,9 @@ class LoginController extends Controller
                 ],
                 404
             );
-
-            // return response()
-            // ->view('login_form', $data, 404);
         }
 
-        if( $request->input('password') != 'certainly' )
+        if( !Hash::check( $request->input('password'), $user[0]['password'] ) )
         {
             return response()->json(
                 [
@@ -84,20 +96,24 @@ class LoginController extends Controller
                 ],
                 401
             );
-            // return response()
-            // ->view('login_form', $data, 401);
         }
 
         $request->session()->put([
             'token' => 500
         ]);
 
-        return response()->json([
-                'msg' => 'Login Successful. Please Wait',
-                'status' => 'TRUE'
-            ],
-            200
-        );
+        return response()
+        ->json([
+            'status' => 'true',
+            'redirect_url' => '/',
+            'message' => 'Login Successful'
+        ],200)
+        ->cookie('token', 500);
+
+        // return response('')
+        // ->cookie('token', 500);
+
+        //return redirect('/');
 
         // return response('Logged In')
         // ->cookie('token', 500);
