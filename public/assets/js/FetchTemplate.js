@@ -1,11 +1,12 @@
 FetchClass = 
 {
-    controller : new AbortController(),
+    controller : null,
     signal: null,
     timeout_flag: true,
     max_duration: 3000,
     url: '',
     headers: null,
+    payload : null,
 
     get_controller : function()
     {
@@ -78,14 +79,11 @@ FetchClass =
 
     abort_controller: function()
     {
-        console.log("Aborting")
-        console.log(this.controller);
         this.controller.abort();
     },
 
     negate_timeout_flag : function()
     {
-        console.log("Negating");
         this.timeout_flag = false;
     },
 
@@ -202,3 +200,16 @@ FetchClass =
         }
     },
 };
+
+//constructor
+function init_fetch(url = '', duration=3000)
+{
+	this.controller = new AbortController();
+	this.signal = this.controller.signal;
+	this.set_headers();
+	this.url = url;
+	this.max_duration = duration;
+}
+
+//constructor assignment to the class
+Object.assign(init_fetch.prototype, FetchClass);

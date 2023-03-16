@@ -75,18 +75,14 @@
 
   let form = document.querySelector('#login_form');
 
-
+  let form_fetcher = new init_fetch(form.action, 30000);
 
   document.querySelector('#form_submit_button').addEventListener('click', function(){
     event.preventDefault();
 
     let form_obj = new FormData( form );
 
-    let form_fetcher = FetchClass;
-
     form_fetcher.set_payload(form_obj);
-    form_fetcher.set_url(form.action);
-    form_fetcher.set_headers();
 
     form_fetcher.call_request(
       function(response){

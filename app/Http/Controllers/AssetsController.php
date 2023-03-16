@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAssetsRequest;
 use App\Http\Requests\UpdateAssetsRequest;
 use App\Models\Assets;
+use Carbon\Carbon;
 
 //use Illuminate\Support\Facades\View;
 
@@ -21,10 +22,13 @@ class AssetsController extends Controller
         //
         $asset_obj = Assets::all();
 
+        $add_asset_link = '/resources/create';
+
         return view('assets.assets_list',[
             'assets' => $asset_obj,
             'page_title' => 'Assets',
-            'main_heading' => 'Assets'
+            'main_heading' => 'Assets',
+            'add_asset_link' => $add_asset_link
         ]);
     }
 
@@ -52,8 +56,56 @@ class AssetsController extends Controller
      */
     public function store(StoreAssetsRequest $request)
     {
-        //
-        dd($request);
+        try
+        {
+            $asset_obj = new Assets();
+
+            $asset_obj->asset_type_id = $request->input('asset_type_id');
+            $asset_obj->name = $request->input('name');
+            $asset_obj->status = $request->input('status');
+            $asset_obj->created_at = Carbon::now();
+    
+            $result = $asset_obj->save();
+    
+            if( $result != true )
+            {
+                return response()
+                ->json([
+                    'status' => 'false',
+                    'message' => 'Could not create asset'
+                ],
+                500);
+            }
+    
+            return response()
+            ->json([
+                'status' => 'true',
+                'message' => 'Asset Created Successfully',
+                'redirect_url' => "http://127.0.0.1/resources/$asset_obj->id",
+                'asset_id' => $asset_obj->id
+            ],
+            201);
+        }
+
+        catch(\Exception $e)
+        {
+            return response()
+            ->json([
+                'status' => 'false',
+                'message' => $e->getMessage(),
+            ],
+            500);
+        }
+
+        catch(\Error $e)
+        {
+            return response()
+            ->json([
+                'status' => 'false',
+                'message' => $e->getMessage(),
+            ],
+            500);
+        }
     }
 
     /**
