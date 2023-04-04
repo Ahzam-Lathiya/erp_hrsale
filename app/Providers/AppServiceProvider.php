@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View as FacadeView;
 use Illuminate\View\View;
 
+use App\Services\PrettyPrinter;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -16,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->bind('PrettyPrinter', function ($app){
+            // echo "still runs"  . '<br>';
+            return new PrettyPrinter();
+        });
     }
 
     /**

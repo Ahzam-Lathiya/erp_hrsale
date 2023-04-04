@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+// use App\Services\PrettyPrinter;
+use App\Facades\PrettyPrintFacade as PrettyPrint;
+
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -65,18 +68,24 @@ class LoginController extends Controller
         ->get()
         ->toArray();
 
+        //PrettyPrint::print_and_die(['car' => 'camaro']);
+        //PrettyPrint::print_and_die( $obj );
+
         $credentials = $request->validate([
             'name' => ['required'],
             'password' => ['required']
         ]);
 
-        // if(Auth::attempt($credentials))
+        // if( Auth::attempt($credentials))
         // {
-        //     echo "Auth success";
-        //     exit;
+        //     return response()
+        //     ->json([
+        //         'status' => 'false',
+        //         'message' => 'Data Incomplete'
+        //     ],400);
         // }
 
-        if( $request->input('name') != $user[0]['name'] )
+        if( empty($user) )
         {
             return response()->json(
                 [

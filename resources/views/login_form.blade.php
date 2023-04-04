@@ -89,7 +89,7 @@
         console.log(response);
         if(response.status != 'true')
         {
-          alert("Something is not right");
+          alert(response.message);
           return;
         }
 
