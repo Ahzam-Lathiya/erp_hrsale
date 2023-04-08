@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Hash;
 // use App\Services\PrettyPrinter;
 use App\Facades\PrettyPrintFacade as PrettyPrint;
 
+use App\Facades\CelestialObjectsDataFacade;
+
 use Illuminate\Http\Request;
 
 use App\Models\User;
+//use function App\pretty_print_and_die;
 
 class LoginController extends Controller
 {
@@ -70,6 +73,13 @@ class LoginController extends Controller
 
         //PrettyPrint::print_and_die(['car' => 'camaro']);
         //PrettyPrint::print_and_die( $obj );
+
+        //pretty_print_and_die(['car' => 'camaro']);
+
+        //echo get_mass_of_sun();
+        //echo CelestialObjectsDataFacade::get_mass_of_sun();
+        // echo get_mass_of_moon();
+        // exit;
 
         $credentials = $request->validate([
             'name' => ['required'],

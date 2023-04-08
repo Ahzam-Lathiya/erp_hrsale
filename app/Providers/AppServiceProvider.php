@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View as FacadeView;
 use Illuminate\View\View;
 
 use App\Services\PrettyPrinter;
+use App\Services\CelestialObjectsData;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('PrettyPrinter', function ($app){
             // echo "still runs"  . '<br>';
             return new PrettyPrinter();
+        });
+
+        $this->app->bind('CelestialObjectsData', function ($app){
+            // echo "still runs"  . '<br>';
+            return new CelestialObjectsData();
         });
     }
 
