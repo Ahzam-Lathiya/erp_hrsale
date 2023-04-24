@@ -1,9 +1,15 @@
 <?php
 
 namespace App\Services;
+use App\Contracts\Printer;
 
-class PrettyPrinter
+class PrettyPrinter implements Printer
 {
+    public function __construct()
+    {
+        echo "Init PrettyPrinter" . '<br>';
+    }
+
     public function print(mixed $data)
     {
         echo '<pre>';

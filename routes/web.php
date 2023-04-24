@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssetsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LogicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,8 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::middleware([session_checker::class])->group(function(){
     Route::resource('resources', AssetsController::class);
+
+    Route::get('/logic', [LogicController::class, 'index']);
 });
 
 // Route::get('/assets/create', [AssetsController::class, 'create'])->name('assets.create');
